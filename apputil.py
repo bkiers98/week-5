@@ -11,7 +11,7 @@ def survival_demographics():
                              bins=[-1, 12, 19, 59, 999], \
                              labels=['Child', 'Teen', 'Adult', 'Senior'])
 
-    df_class = df.groupby('pclass').agg( \
+    df_class = df.groupby(['pclass', 'sex', 'age_group']).agg( \
                         n_passengers=('passengerid', 'sum'), \
                         n_survivors=('survived', 'sum')) \
                         .reset_index()
