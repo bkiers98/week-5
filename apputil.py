@@ -2,6 +2,9 @@ import plotly.express as px
 import pandas as pd
 
 # update/add code below ...
+df = pd.read_csv('https://raw.githubusercontent.com/leontoddjohnson/datasets/main/data/titanic.csv')
+df.columns = df.columns.str.lower().str.replace(' ', '_')
+
 def survival_demographics():
     df['age_group'] = pd.cut(df['age'], \
                              bins=[-1, 12, 19, 59, 999], \
