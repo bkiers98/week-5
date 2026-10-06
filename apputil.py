@@ -5,19 +5,28 @@ import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/leontoddjohnson/datasets/main/data/titanic.csv')
 df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
 
-
 def survival_demographics():
+    '''
+    This function groups the df by class, sex, and age group, and returns
+    a DataFrame of aggregate values for each.
+    '''
     df['age_group'] = pd.cut(df['age'], \
                              bins=[-1, 12, 19, 59, 999], \
                              labels=['Child', 'Teen', 'Adult', 'Senior'])
 
-    df_class = df.groupby(['pclass', 'sex', 'age_group'], \
+    df_demographics = df.groupby(['pclass', 'sex', 'age_group'], \
                           observed=False).agg( \
                             n_passengers=('passengerid', 'sum'), \
                             n_survivors=('survived', 'sum')) \
+                            .sort_values(by=['sex', 'age_group']) \
                             .reset_index()
-    df_class['survival_rate'] = df_class['n_survivors'] \
-                                / df_class['n_passengers']
+    df_demographics['survival_rate'] = df_demographics['n_survivors'] \
+                                / df_demographics['n_passengers']
     
+    return df_demographics
 
-    return df_class
+
+def visualize_demographic():
+    fig = px.bar(survival_demographics(), x='pclass', y='survival_rate', \
+                 color='sex', barmode='group', facet_col='age_group')
+    return fig

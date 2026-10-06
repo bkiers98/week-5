@@ -11,6 +11,11 @@ st.write(
 
 '''
 )
+st.write(
+    '''
+    Did women and children have higher survival rates in each class than men?
+    '''
+    )
 # Generate and display the figure
 fig1 = visualize_demographic()
 st.plotly_chart(fig1, use_container_width=True)
