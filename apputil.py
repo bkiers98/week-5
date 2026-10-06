@@ -11,11 +11,13 @@ def survival_demographics():
                              bins=[-1, 12, 19, 59, 999], \
                              labels=['Child', 'Teen', 'Adult', 'Senior'])
 
-    df_class = df.groupby(['pclass', 'sex', 'age_group']).agg( \
-                        n_passengers=('passengerid', 'sum'), \
-                        n_survivors=('survived', 'sum')) \
-                        .reset_index()
-    df_class['survival_rate'] = df_class['n_passengers'] / df_class['n_survivors']
+    df_class = df.groupby(['pclass', 'sex', 'age_group'], \
+                          observed=False).agg( \
+                            n_passengers=('passengerid', 'sum'), \
+                            n_survivors=('survived', 'sum')) \
+                            .reset_index()
+    df_class['survival_rate'] = df_class['n_survivors'] \
+                                / df_class['n_passengers']
     
 
     return df_class
