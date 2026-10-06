@@ -13,7 +13,8 @@ def survival_demographics():
 
     df_class = df.groupby('pclass').agg( \
                         n_passengers=('passengerid', 'sum'), \
-                        n_survivors=('survived', 'sum'))
+                        n_survivors=('survived', 'sum')) \
+                        .reset_index()
     df_class['survival_rate'] = df_class['n_passengers'] / df_class['n_survivors']
     
 
