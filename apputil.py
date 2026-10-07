@@ -30,3 +30,15 @@ def visualize_demographic():
     fig = px.bar(survival_demographics(), x='pclass', y='survival_rate', \
                  color='sex', barmode='group', facet_col='age_group')
     return fig
+
+
+def last_names():
+    '''
+    This function extracts the last name of each passenger from the name
+    column and returns a Series with each last name and the number of
+    passengers with whom it is associated. 
+    '''
+    df['last_names'] = df['name'].str.split(',').str[0]
+    df_last_names = df['last_names'].value_counts()
+
+    return df_last_names
