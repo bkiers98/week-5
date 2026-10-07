@@ -32,11 +32,28 @@ def visualize_demographic():
     return fig
 
 
+def family_groups():
+    '''
+    This function calculates the family size of each passenger and returns
+    an updated DataFrame with information about the ticket fares of different
+    family groups.
+    '''
+    df['family_size'] = df['sibsp'] + df['parch'] + 1
+    df_families = df.groupby(['family_size', 'pclass']).agg( \
+                            n_passengers=('passengerid', 'count'), \
+                            avg_fare=('fare', 'mean'), \
+                            min_fare=('fare', 'min'), \
+                            max_fare=('fare', 'max')) \
+                            .sort_values(by=['pclass', 'family_size']) \
+                            .reset_index()
+    return df_families
+
+
 def last_names():
     '''
     This function extracts the last name of each passenger from the name
     column and returns a Series with each last name and the number of
-    passengers with whom it is associated. 
+    passengers with whom it is associated.
     '''
     df['last_names'] = df['name'].str.split(',').str[0]
     df_last_names = df['last_names'].value_counts()
