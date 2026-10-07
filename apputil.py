@@ -27,8 +27,21 @@ def survival_demographics():
 
 
 def visualize_demographic():
+    '''
+    This function returns a px bar chart showing survival rates across
+    classes and age groups.
+    '''
     fig = px.bar(survival_demographics(), x='pclass', y='survival_rate', \
-                 color='sex', barmode='group', facet_col='age_group')
+                color='sex', barmode='group', facet_col='age_group', \
+                title='Survival Rates by Class and Age Group', \
+                labels={
+                    'pclass': 'Class', 
+                    'survival_rate': 'Survival Rate',
+                    'sex': 'Sex', 
+                    'age_group': 'Age Group'
+                    })
+    fig.for_each_annotation(lambda label: label.update( \
+                            text=label.text.split('=')[1]))
     return fig
 
 
@@ -62,7 +75,11 @@ def last_names():
 
 
 def visualize_families():
+    '''
+    This function returns a px box chart showing fare distribution
+    across classes.
+    '''
     fig = px.box(family_groups(), x='pclass', y='avg_fare', \
               title='Fare Distribution by Class', \
-                labels={'pclass':'Class', 'avg_fare':'Average Fare'})
+                labels={'pclass': 'Class', 'avg_fare': 'Average Fare'})
     return fig
