@@ -11,6 +11,7 @@ st.write(
 
 '''
 )
+
 st.write(
     '''
     Did women and children have higher survival rates in each class than men?
@@ -24,6 +25,24 @@ st.write(
 '''
 # Titanic Visualization 2
 '''
+)
+
+st.write(
+    '''
+    The number of passengers who share a surname does not line up with the
+    number and size of family units as calculated by each passenger's sibling/
+    spouse and parent/child information. For example, 9 people share the name 
+    'Andersson', but there are no calculated family units of nine people.
+    This suggests that multiple families shared surnames, and that some 
+    passengers may have inaccurate family size information. 
+    '''
+)
+
+st.write(
+    '''
+    How do the average fares of families compare across the three passenger
+    classes?
+    '''
 )
 # Generate and display the figure
 fig2 = visualize_families()

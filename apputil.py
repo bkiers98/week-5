@@ -59,3 +59,10 @@ def last_names():
     df_last_names = df['last_names'].value_counts()
 
     return df_last_names
+
+
+def visualize_families():
+    fig = px.box(family_groups(), x='pclass', y='avg_fare', \
+              title='Fare Distribution by Class', \
+                labels={'pclass':'Class', 'avg_fare':'Average Fare'})
+    return fig
